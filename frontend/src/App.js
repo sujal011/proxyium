@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import UrlBar from './components/UrlBar';
 import ProxyViewer from './components/ProxyViewer';
@@ -11,7 +11,7 @@ function App() {
   const [error, setError] = useState('');
   const [history, setHistory] = useState([]);
 
-  const handleNavigate = async (url) => {
+  const handleNavigate = useCallback(async (url) => {
     if (!url) {
       setError('Please enter a valid URL');
       return;
@@ -46,19 +46,18 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleProxyNavigate = async (proxyUrl) => {
+  const handleProxyNavigate = useCallback(async (proxyUrl) => {
     if (!proxyUrl) return;
-    
     const match = proxyUrl.match(/\/api\/proxy\?url=([^&]+)/);
     if (match) {
       const decodedUrl = decodeURIComponent(match[1]);
       await handleNavigate(decodedUrl);
     }
-  };
+  }, [handleNavigate]);
 
-  const handleFormSubmit = async (action, method, data) => {
+  const handleFormSubmit = useCallback(async (action, method, data) => {
     const match = action.match(/\/api\/proxy\?url=([^&]+)/);
     if (!match) return;
     
@@ -90,7 +89,7 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     const handleMessage = (event) => {
@@ -103,7 +102,7 @@ function App() {
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [handleProxyNavigate,handleFormSubmit]);
+  }, [handleProxyNavigate, handleFormSubmit]);
 
   return (
     <div className="app">
