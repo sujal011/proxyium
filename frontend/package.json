@@ -1,1 +1,1 @@
-{"name":"proxyium","version":"1.0.0","private":true,"dependencies":{"date-fns":"^3.0.0"}}
+{"name":"proxyium","version":"1.0.0","private":true,"scripts":{"start":"react-scripts start","build":"react-scripts build","test":"react-scripts test","eject":"react-scripts eject"},"dependencies":{"@hookform/resolvers":"^2.8.0","date-fns":"^3.0.0","react":"^17.0.2","react-dom":"^17.0.2","react-scripts":"^4.0.3","zod":"^1.8.2"}}
