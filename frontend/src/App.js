@@ -103,7 +103,7 @@ function App() {
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, []);
+  }, [handleProxyNavigate,handleFormSubmit]);
 
   return (
     <div className="app">
